@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="grid grid-cols-1 grid-rows-5 h-screen mx-auto" x-data="game()">
+    <!-- Top row-->
+    <div class="bg-gray-700 mb-5 row-span-1 text-center text-6xl font-bold text-white py-6">
+      Celebrity Dogs Top Trumps
+    </div>
+    <div x-show="status=='menu'">
+        <div class="flex justify-center items-center h-full bg-gray-300">
+            <label class="p-4 text-4xl font-bold" for="deckSize">Enter deck size</label>
+            <input class="p-4 text-4xl" type="text" x-model="deckSize" id="deckSize" placeholder="Between 4-30" autocomplete="off">
+            <button @click="start()" class= "buttonPulse cursor-pointer bg-green-500 text-4xl hover:bg-gray-700 text-white font-bold py-2 px-4 mb-2 rounded-lg mx-16 my-3 h-32 w-64">Start</button>
+        </div>
+    </div>
+    <div x-show="status=='gameOver'">
+        <div class="flex justify-center items-center h-full bg-gray-300">
+            <h1 class="font-bold text-4xl">Game Over&nbsp;</h1>
+            <h1 class="font-bold text-4xl" x-text="message"></h1>
+            <button @click="reset()" 
+            class= "buttonPulse cursor-pointer bg-green-500 text-xl hover:bg-gray-700 text-white font-bold py-2 px-4 mb-2 rounded-lg mx-16 my-3">
+            Play Again</button>
+        </div>
+    </div>
+    <div class="grid grid-cols-5 row-span-4 gap-5" x-show="status==='play' || status==='reveal'">
+        <!-- Left deck-->
+        <div class="bg-gray-300 col-span-1">
+            <div class="bg-gray-900 text-white p-2 m-2 rounded-lg font-bold text-2xl text-center">
+                <span x-text="playerHand.length"></span><span> Cards Remaining</span>
+            </div>
+            <ol>
+                <template x-for="dog in playerHand">
+                    <li x-text="dog.name"></li>
+
+                </template>
+            </ol>
+        </div>
+        <div class="col-span-3">
+            <div class="grid grid-cols-5 grid-rows-16 gap-5 h-full">
+                <!-- Player cards-->
+                <div class="bg-gray-500 col-span-2 row-span-5">
+                    <div class="pl-4">
+                        <span x-text="playerHand[0].name" class="text-4xl"></span>
+                        <ul class="list-disc ml-4 text-2xl">
+                            <li class="cursor-pointer mb-4" @click="play('exercise')">Exercise
+                                <span x-text="playerHand[0].exercise"></span>
+                            </li>
+                            <li class="cursor-pointer mb-4" @click="play('intelligence')">Intelligence
+                                <span x-text="playerHand[0].intelligence"></span>
+                            </li>
+                            <li class="cursor-pointer mb-4" @click="play('friendliness')">Friendliness
+                                <span x-text="playerHand[0].friendliness"></span>
+                            </li>
+                            <li class="cursor-pointer mb-4" @click="play('drool')">Drool
+                                <span x-text="playerHand[0].drool"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Middle area-->
+                <div class="col-span-1 row-span-5">
+                    <div x-show="showMessage" class="font-bold text-2xl text-center" x-transition>
+                        <span x-text="message"></span>
+                    </div>
+                </div>
+                <!-- Computer Card-->
+                <div class="bg-gray-500 col-span-2 row-span-5">
+                    <div class="pl-4" x-show="status==='reveal'">
+                        <span x-text="computerHand[0].name" class="text-4xl"></span>
+                        <ul class="list-disc ml-4 text-2xl">
+                            <li>Exercise
+                                <span x-text="computerHand[0].exercise"></span>
+                            </li>
+                            <li>Intelligence
+                                <span x-text="computerHand[0].intelligence"></span>
+                            </li>
+                            <li>Friendliness
+                                <span x-text="computerHand[0].friendliness"></span>
+                            </li>
+                            <li>Drool
+                                <span x-text="computerHand[0].drool"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Message Area-->
+                <div class="bg-gray-600 col-span-5 row-span-1 gap-5">Message Area
+                </div>
+            </div>
+        </div>
+        <!-- Right Deck-->
+        <div class="bg-gray-300 col-span-1">
+            <div class="bg-gray-900 text-white p-2 m-2 rounded-lg font-bold text-2xl text-center">
+                <span x-text="computerHand.length"></span><span> Cards Remaining</span>
+            </div>
+            <ol x-show="status==='menu'">
+                <template x-for="dog in computerHand">
+                    <li x-text="dog.name"></li>
+
+                </template>
+            </ol>
+        </div>
+    </div>
+  </div>
+  <script src="dogs.js"></script>
+  <script src="script.js"></script>
+  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
+</body>
+
+</html>
