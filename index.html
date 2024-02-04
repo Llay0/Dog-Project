@@ -50,7 +50,11 @@
                 <div class="bg-gray-500 col-span-2 row-span-5">
                     <div class="pl-4">
                         <span x-text="playerHand[0].name" class="text-4xl"></span>
+                        <div class="mr-8 border-2 border-solid border-sky-900 rounded-lg my-4">
+                          <img x-bind:src="playerHand[0].image" class="object-cover h-48 w-96">
+                        </div>
                         <ul class="list-disc ml-4 text-2xl">
+                          
                             <li class="cursor-pointer mb-4" @click="play('exercise')">Exercise
                                 <span x-text="playerHand[0].exercise"></span>
                             </li>
@@ -76,6 +80,9 @@
                 <div class="bg-gray-500 col-span-2 row-span-5">
                     <div class="pl-4" x-show="status==='reveal'">
                         <span x-text="computerHand[0].name" class="text-4xl"></span>
+                        <div class="mr-8 border-2 border-solid border-sky-900 rounded-lg my-4">
+                          <img x-bind:src="computerHand[0].image" class="object-cover h-48 w-96">
+                        </div>
                         <ul class="list-disc ml-4 text-2xl">
                             <li>Exercise
                                 <span x-text="computerHand[0].exercise"></span>
@@ -113,6 +120,7 @@
   </div>
   <script src="dogs.js"></script>
   <script src="script.js"></script>
+  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
 </body>
 
 </html>
